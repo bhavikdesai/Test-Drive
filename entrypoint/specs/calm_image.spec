@@ -26,16 +26,16 @@
       },
       {
          "spec":{
-            "name":"CentOS-7-Gnome.qcow2",
+            "name":"Linux_ToolsVM.qcow2",
             "resources":{
                "image_type":"DISK_IMAGE",
-               "source_uri":"https://storage.googleapis.com/testdrive-templates/library/images/CentOS-7-Gnome.qcow2",
+               "source_uri":"https://storage.googleapis.com/testdrive-templates/library/images/Linux_ToolsVM.qcow2",
                "version":{
-                  "product_version":"7-1810-GUI",
-                  "product_name":"CentOS"
+                  "product_version":"Tools_VM",
+                  "product_name":"Linux"
                }
             },
-            "description":"https://storage.googleapis.com/testdrive-templates/library/images/CentOS-7-Gnome.qcow2"
+            "description":"https://storage.googleapis.com/testdrive-templates/library/images/Linux_ToolsVM.qcow2"
          },
          "api_version":"3.1.0",
          "metadata":{
@@ -45,7 +45,7 @@
                "name":"admin",
                "uuid":"00000000-0000-0000-0000-000000000000"
             },
-            "name":"CentOS-7-Gnome.qcow2"
+            "name":"Linux_ToolsVM.qcow2"
          }
       }
    ]

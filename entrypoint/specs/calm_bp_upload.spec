@@ -1,29 +1,9 @@
 {
    "entities":[
       {
-         "bp_name":"CentOS_IaaS",
-         "bp_file":"CentOS_IaaS.json",
+         "bp_name":"Linux_Tools",
+         "bp_file":"Linux_Tools.json",
          "bp_project":"default"
-      },
-      {
-         "bp_name":"MySQL",
-         "bp_file":"MySQL.json",
-         "bp_project":"NY_Office"
-      },
-      {
-         "bp_name":"Wordpress",
-         "bp_file":"Wordpress.json",
-         "bp_project":"LA_Office"
-      },
-      {
-         "bp_name":"Redis",
-         "bp_file":"Redis.json",
-         "bp_project":"NY_Office"
-      },
-      {
-         "bp_name":"Jenkins",
-         "bp_file":"Jenkins.json",
-         "bp_project":"LA_Office"
       }
    ]
 }
