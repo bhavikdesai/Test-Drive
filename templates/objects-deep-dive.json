@@ -33,10 +33,10 @@
       "zone":"us-west1-c",
       "labels":{},
       "hardware":{
-         "min_ssd_count":1,
+         "min_ssd_count":2,
          "cluster_min_nodes":1,
          "min_host_gb_ram":104,
-         "min_host_cpu_count":16,
+         "min_host_cpu_count":20,
          "svm_num_vcpus":8,
          "svm_gb_ram":16
       },

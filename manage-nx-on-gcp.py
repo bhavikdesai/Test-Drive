@@ -28,7 +28,7 @@ from datetime import datetime
 
 # ================== MODIFY FOR YOUR ENVIRONMENT ==================
 metadata = {
-    "projects": ["nutanix-expo"],  # replace with your project name
+    "projects": ["testdrive02"],  # replace with your project name
     "duration": 24,  # replace with your desired number of hours
     "name": time.strftime("%Y-%m-%d %H:%M:%S")  # optionally change
 }
