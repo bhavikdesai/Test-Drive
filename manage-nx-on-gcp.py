@@ -57,9 +57,12 @@ def file_to_dict(filename):
 def print_help():
     print("To deploy a cluster, specify a json template file:")
     print("  python3 manage-nx-on-gcp.py path/to/cluster-spec.json\n")
-    print("To get cluster deployment info, specify the request_id " +
+    print("To get all cluster deployment info, specify the request_id " +
           "UUID and append .info:")
     print("  python3 manage-nx-on-gcp.py <request_id-uuid>.info\n")
+    print("To get only cluster IP/password info, specify the request_id" +
+          "UUID and append .pass:")
+    print("  python3 manage-nx-on-gcp.py <request_id-uuid>.pass\n")
     print("To modify a cluster's duration, specify the request_id " +
           "UUID and append .mod:")
     print("  python3 manage-nx-on-gcp.py <request_id-uuid>.mod\n")
@@ -76,7 +79,7 @@ def print_help():
 
 
 # Output the cluster info
-def info(cluster, short):
+def info(cluster, detail):
 
     # Create the URL and make the call
     req_id = cluster.split(".")[0]
@@ -93,9 +96,18 @@ def info(cluster, short):
 
         # Print the info
         cluster_info = json.loads(resp.content.decode("utf-8"))
-        if short:
-            print(json.dumps(cluster_info["data"]["metadata"],
+        if detail == "short":
+            print(json.dumps(cluster_info["data"],
                              indent=4, sort_keys=True))
+        elif detail == "pass":
+            pc_info = cluster_info["data"]["data"]["allocated_resources"]\
+                                  ["tdaas_pc"]
+            pe_info = cluster_info["data"]["data"]["allocated_resources"]\
+                                  ["tdaas_cluster"]
+            print(f'PC Info:\t{pc_info["external_ip"]}\t\t' +
+                  f'{pc_info["prism_password"]}\n' +
+                  f'PE Info:\t{pe_info["external_ip"]}\t\t' +
+                  f'{pe_info["prism_password"]}')
         else:
             print(json.dumps(cluster_info, indent=4, sort_keys=True))
 
@@ -142,7 +154,7 @@ def create(cluster):
 
         # Call the info function to get additional detail on the deployment
         time.sleep(5)
-        info(request_info['data']['request_id'], True)
+        info(request_info['data']['request_id'], "short")
 
     # Handle failure
     else:
@@ -158,7 +170,7 @@ def modify(cluster):
     t = datetime.utcnow()
     print("Current time (UTC) " + str(t))
     req_id = cluster.split(".")[0]
-    info(req_id, True)
+    info(req_id, "short")
 
     # Get users input for how long to extend the cluster
     while True:
@@ -187,7 +199,7 @@ def modify(cluster):
     if resp.ok:
         extend_info = json.loads(resp.content.decode("utf-8"))
         print("=== " + extend_info["message"] + " ===")
-        info(req_id, True)
+        info(req_id, "short")
 
     else:
         print("Request failed with the following detail:")
@@ -220,7 +232,7 @@ def delete(cluster):
 
     # Print cluster info
     req_id = cluster.split(".")[0]
-    info(req_id, True)
+    info(req_id, "short")
 
     # Make sure the user really wants to delete the cluster
     while True:
@@ -243,7 +255,7 @@ def delete(cluster):
     if resp.ok:
         delete_info = json.loads(resp.content.decode("utf-8"))
         print("=== " + delete_info["message"] + " ===")
-        info(req_id, True)
+        info(req_id, "short")
 
     else:
         print("Request failed with the following detail:")
@@ -275,7 +287,9 @@ if __name__ == '__main__':
                     create(cluster)
                 # Get info on a cluster
                 elif cluster.endswith("info"):
-                    info(cluster, False)
+                    info(cluster, "long")
+                elif cluster.endswith("pass"):
+                    info(cluster, "pass")
                 # Download logs for a cluster
                 elif cluster.endswith("logs"):
                     logs(cluster)
