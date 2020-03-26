@@ -104,9 +104,9 @@ def info(cluster, detail):
                                   ["tdaas_pc"]
             pe_info = cluster_info["data"]["data"]["allocated_resources"]\
                                   ["tdaas_cluster"]
-            print(f'PC Info:\t{pc_info["external_ip"]}\t\t' +
+            print(f'PC Info:\thttps://{pc_info["external_ip"]}:9440\t\t' +
                   f'{pc_info["prism_password"]}\n' +
-                  f'PE Info:\t{pe_info["external_ip"]}\t\t' +
+                  f'PE Info:\thttps://{pe_info["external_ip"]}:9440\t\t' +
                   f'{pe_info["prism_password"]}')
         else:
             print(json.dumps(cluster_info, indent=4, sort_keys=True))
