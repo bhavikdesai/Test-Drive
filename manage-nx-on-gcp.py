@@ -97,7 +97,7 @@ def info(cluster, detail):
         # Print the info
         cluster_info = json.loads(resp.content.decode("utf-8"))
         if detail == "short":
-            print(json.dumps(cluster_info["data"],
+            print(json.dumps(cluster_info["data"]["metadata"],
                              indent=4, sort_keys=True))
         elif detail == "pass":
             pc_info = cluster_info["data"]["data"]["allocated_resources"]\
