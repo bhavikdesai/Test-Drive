@@ -29,6 +29,7 @@
       ],
       "type":"$NOS_CLUSTER",
       "is_new":true,
+      "set_cluster_external_ip_address": true,
       "region":"us-west1",
       "zone":"us-west1-c",
       "labels":{},
