@@ -65,11 +65,16 @@ def main():
       for secret in bp_body["spec"]["resources"]\
                            ["credential_definition_list"]:
         secret["secret"]["attrs"]["is_secret_modified"] = True
+        # Handle PC Creds which are unique
+        if secret["name"] == "PC_CREDS":
+          secret["secret"]["username"] = "admin"
+          secret["secret"]["value"] = pc_password
         # Find a matching type/username from our secret_spec
-        for ss in secret_spec["entities"]:
-          if secret["type"] == ss["type"] and\
-             secret["username"] == ss["username"]:
-            secret["secret"]["value"] = ss["secret"]
+        else:
+          for ss in secret_spec["entities"]:
+            if secret["type"] == ss["type"] and\
+               secret["username"] == ss["username"]:
+              secret["secret"]["value"] = ss["secret"]
         print(json.dumps(secret, sort_keys=True, indent=4))
 
       # Configure NICs and Images
